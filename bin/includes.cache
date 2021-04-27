@@ -1,0 +1,17 @@
+[
+  {
+    "Sourcefile": null,
+    "Include": "",
+    "Includepath": "C:\\Users\\falve\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\samd\\1.8.11\\cores\\arduino"
+  },
+  {
+    "Sourcefile": null,
+    "Include": "",
+    "Includepath": "C:\\Users\\falve\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\samd\\1.8.11\\variants\\mkrwifi1010"
+  },
+  {
+    "Sourcefile": "c:\\Users\\falve\\OneDrive\\Documents\\Arduino\\libraries\\oprintstream\\bin\\sketch\\oprintstream.ino.cpp",
+    "Include": "",
+    "Includepath": null
+  }
+]

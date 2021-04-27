@@ -3,61 +3,71 @@
 #ifndef SRC_LOGGER_HPP_
 #define SRC_LOGGER_HPP_
 
-#include <stdlib.h>
-#include <string>
 #include <Arduino.h>
 #include <Print.h>
-#include <boost_1_76_0.h>
-#include <boost/utility/string_view.hpp>
+#include <Stream.h>
+#include <api/USBAPI.h>
+
+#include <iostream>
 
 namespace falven {
 namespace ad {
 
-#define DEBUG
+// #define DEBUG
 
-#ifdef DEBUG
-#define DEBUG_LOCATION()                                             \
-  Serial << millis() << "ms: " << __FILE__ << ':' << __LINE__ << ' ' \
-         << __PRETTY_FUNCTION__ << endl;
-#define DEBUG_PRINTLN(str)                                           \
-  Serial << millis() << "ms: " << __FILE__ << ':' << __LINE__ << ' ' \
-         << __PRETTY_FUNCTION__ << ' ' << str << endl;
-#else
-#define DEBUG_LOCATION()
-#define DEBUG_PRINTLN(str)
-#endif
+// #ifdef DEBUG
+// #define DEBUG_LOCATION()                                             \
+//   Serial << millis() << "ms: " << __FILE__ << ':' << __LINE__ << ' ' \
+//          << __PRETTY_FUNCTION__ << endl;
+// #define DEBUG_PRINTLN(str)                                           \
+//   Serial << millis() << "ms: " << __FILE__ << ':' << __LINE__ << ' ' \
+//          << __PRETTY_FUNCTION__ << ' ' << str << endl;
+// #else
+// #define DEBUG_LOCATION()
+// #define DEBUG_PRINTLN(str)
+// #endif
+
+class OPrintStream : public Serial_ {
+ public:
+  OPrintStream(USBDeviceClass &_usb) : Serial_(_usb) {}
+
+  template <typename T>
+  Print &operator<<(T arg) {
+    print(arg);
+    return *(dynamic_cast<Print *>(this));
+  }
+
+  Print &operator<<(Print &(*opsf)(Print &)) { return opsf(*this); }
+  // template <>
+  // Print &operator<<<const std::string &>(const std::string &arg) {
+  //   print(arg.c_str());
+  //   return *this;
+  // }
+
+  // Print &dec(unsigned long arg) { return *this; }
+
+ private:
+};
 
 template <typename T>
-Print &operator<<(Print &print, T arg) {
-  print.print(arg);
-  return print;
+Print &operator<<(Print &p, T arg) {
+  p.print(arg);
+  return p;
 }
 
+/**
+ *  @brief  Write a newline and flush the stream.
+ *
+ *  This manipulator is often mistakenly used when a simple newline is
+ *  desired, leading to poor buffering performance.  See
+ *  https://gcc.gnu.org/onlinedocs/libstdc++/manual/streambufs.html#io.streambuf.buffering
+ *  for more on this subject.
+ */
 template <>
-Print &operator<<<const std::string &>(Print &print, const std::string &arg) {
-  print.print(arg.c_str());
-  return print;
-}
-
-template <>
-Print &operator<<<const boost::string_view &>(Print &print,
-                                              const boost::string_view &arg) {
-  for (const auto c : arg) {
-    print.print(c);
-  }
-  return print;
-}
-
-Print &dec(Print &print, unsigned long arg) {
-  printf("%lx\n", arg);
-  std::to_string(arg);
-  return print;
-}
-
-Print &endl(Print &print) {
-  print.println();
-  print.flush();
-  return print;
+Print &endl<>(Print &ops) {
+  ops.println();
+  ops.flush();
+  return ops;
 }
 
 }  // namespace ad

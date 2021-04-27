@@ -1,0 +1,1 @@
+#line 1 "c:\\Users\\falve\\OneDrive\\Documents\\Arduino\\libraries\\oprintstream\\README.adoc"

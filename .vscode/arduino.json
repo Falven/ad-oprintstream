@@ -1,0 +1,6 @@
+{
+    "board": "arduino:samd:mkrwifi1010",
+    "port": "COM6",
+    "sketch": "oprintstream.ino",
+    "output": "./bin"
+}
