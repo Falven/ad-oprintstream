@@ -25,6 +25,7 @@
                 "C:\\Users\\falve\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\samd\\1.8.11\\cores\\arduino\\api\\deprecated-avr-comp",
                 "C:\\Users\\falve\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\samd\\1.8.11\\cores\\arduino",
                 "C:\\Users\\falve\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\samd\\1.8.11\\variants\\mkrwifi1010",
+                "C:\\Users\\falve\\OneDrive\\Documents\\Arduino\\libraries\\oprintstream\\src",
                 "c:\\users\\falve\\appdata\\local\\arduino15\\packages\\arduino\\tools\\arm-none-eabi-gcc\\7-2017q4\\arm-none-eabi\\include\\c++\\7.2.1",
                 "c:\\users\\falve\\appdata\\local\\arduino15\\packages\\arduino\\tools\\arm-none-eabi-gcc\\7-2017q4\\arm-none-eabi\\include\\c++\\7.2.1\\arm-none-eabi",
                 "c:\\users\\falve\\appdata\\local\\arduino15\\packages\\arduino\\tools\\arm-none-eabi-gcc\\7-2017q4\\arm-none-eabi\\include\\c++\\7.2.1\\backward",
@@ -498,8 +499,7 @@
                 "__ATOMIC_ACQ_REL=4",
                 "__ATOMIC_RELEASE=3",
                 "USBCON"
-            ],
-            "compileCommands": "${workspaceFolder}/bin/compile_commands.json"
+            ]
         }
     ]
 }

@@ -2,11 +2,9 @@
 
 #include <Arduino.h>
 
-#include "src/oprintstream.hpp"
+#include <oprintstream.hpp>
 
 using namespace falven::ad;
-
-#define DEBUG
 
 OPrintStream print(USBDevice);
 
@@ -14,7 +12,7 @@ void setup() {
   print.begin(9600UL);
   while (!print) {
   }
-  print << hex << "Testing... " << String("1, 2") << endl;
+  print << bin << "Testing... " << 1 << " " << 2 << endl;
 }
 
 void loop() {}
