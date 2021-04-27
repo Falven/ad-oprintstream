@@ -7,21 +7,16 @@
 
 using namespace falven::ad;
 
+
+
 OPrintStream print(USBDevice);
 
 void setup() {
   print.begin(9600UL);
   while (!print) {
   }
-
-  print.println("Testing");
-  // Serial.begin(9600UL);
-  // while (!Serial) {
-  // }
-  // DEBUG_LOCATION();
+  ;
+  print << hex << "Testing... " << String("1, 2") << endl;
 }
 
-void loop() {
-  print << 100UL << endl;
-  delay(2000UL);
-}
+void loop() {}

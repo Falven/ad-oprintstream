@@ -7,27 +7,22 @@
 
 using namespace falven::ad;
 
+#define DEBUG
+
 OPrintStream print(USBDevice);
 
-#line 11 "c:\\Users\\falve\\OneDrive\\Documents\\Arduino\\libraries\\oprintstream\\oprintstream.ino"
+#line 13 "c:\\Users\\falve\\OneDrive\\Documents\\Arduino\\libraries\\oprintstream\\oprintstream.ino"
 void setup();
-#line 23 "c:\\Users\\falve\\OneDrive\\Documents\\Arduino\\libraries\\oprintstream\\oprintstream.ino"
+#line 21 "c:\\Users\\falve\\OneDrive\\Documents\\Arduino\\libraries\\oprintstream\\oprintstream.ino"
 void loop();
-#line 11 "c:\\Users\\falve\\OneDrive\\Documents\\Arduino\\libraries\\oprintstream\\oprintstream.ino"
+#line 13 "c:\\Users\\falve\\OneDrive\\Documents\\Arduino\\libraries\\oprintstream\\oprintstream.ino"
 void setup() {
   print.begin(9600UL);
   while (!print) {
   }
-
-  print.println("Testing");
-  // Serial.begin(9600UL);
-  // while (!Serial) {
-  // }
-  // DEBUG_LOCATION();
+  DEBUG_LOCATION();
+  print << hex << "Testing... " << String("1, 2") << endl;
 }
 
-void loop() {
-  print << 100UL << endl;
-  delay(2000UL);
-}
+void loop() {}
 
