@@ -6,8 +6,8 @@
 
 using namespace falven::ad;
 
-// Our global printing object.
-extern OPrintStream print(USBDevice);
+// Our printing object.
+OPrintStream print(USBDevice);
 
 void setup() {
   // Your typical Serial initialization.

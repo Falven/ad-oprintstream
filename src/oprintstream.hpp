@@ -4,10 +4,7 @@
 #define SRC_OPRINTSTREAM_HPP_
 
 #include <Arduino.h>
-#include <Print.h>
-#include <api/USBAPI.h>
-
-#include <iostream>
+#include <USB/USBAPI.h>
 
 namespace falven {
 namespace ad {
@@ -26,7 +23,9 @@ class OPrintStream : public Serial_ {
    *
    * @param _usb USB metadata for the Serial connection.
    */
-  OPrintStream(USBDeviceClass &_usb) : Serial_(_usb), base_flag_(DEC) {}
+  OPrintStream(USBDeviceClass &_usb);
+
+  OPrintStream(const OPrintStream &other);
 
   /**
    *  @brief  Interface for manipulators.
@@ -35,9 +34,7 @@ class OPrintStream : public Serial_ {
    *  functions in constructs like "falven::ad::cout << falven::ad::endl".  For
    * more information, see the iomanip header.
    */
-  OPrintStream &operator<<(OPrintStream &(*pmf)(OPrintStream &)) {
-    return pmf(*this);
-  }
+  OPrintStream &operator<<(OPrintStream &(*pmf)(OPrintStream &));
 
   /**
    * @brief Prints the provided flash memory string.
@@ -45,10 +42,7 @@ class OPrintStream : public Serial_ {
    * @param arg The flash memory string to print.
    * @return OPrintStream& Returns the OPrintStream reference for continuation.
    */
-  OPrintStream &operator<<(const __FlashStringHelper *arg) {
-    print(arg);
-    return *this;
-  }
+  OPrintStream &operator<<(const __FlashStringHelper *arg);
 
   /**
    * @brief Prints the provided arduino::string.
@@ -56,10 +50,7 @@ class OPrintStream : public Serial_ {
    * @param arg The arduino::string to print.
    * @return OPrintStream& Returns the OPrintStream reference for continuation.
    */
-  OPrintStream &operator<<(const arduino::String &arg) {
-    print(arg);
-    return *this;
-  }
+  OPrintStream &operator<<(const arduino::String &arg);
 
   /**
    * @brief Prints the provided char[].
@@ -67,10 +58,7 @@ class OPrintStream : public Serial_ {
    * @param arg The char[] to print.
    * @return OPrintStream& Returns the OPrintStream reference for continuation.
    */
-  OPrintStream &operator<<(const char arg[]) {
-    print(arg);
-    return *this;
-  }
+  OPrintStream &operator<<(const char arg[]);
 
   /**
    * @brief Prints the provided const char.
@@ -78,10 +66,7 @@ class OPrintStream : public Serial_ {
    * @param arg The const char to print.
    * @return OPrintStream& Returns the OPrintStream reference for continuation.
    */
-  OPrintStream &operator<<(const char arg) {
-    print(arg);
-    return *this;
-  }
+  OPrintStream &operator<<(const char arg);
 
   /**
    * @brief Prints the provided unsigned char.
@@ -89,10 +74,7 @@ class OPrintStream : public Serial_ {
    * @param arg The unsigned char to print.
    * @return OPrintStream& Returns the OPrintStream reference for continuation.
    */
-  OPrintStream &operator<<(unsigned char arg) {
-    print(arg, base_flag_);
-    return *this;
-  }
+  OPrintStream &operator<<(unsigned char arg);
 
   /**
    * @brief Prints the provided int.
@@ -100,10 +82,7 @@ class OPrintStream : public Serial_ {
    * @param arg The int to print.
    * @return OPrintStream& Returns the OPrintStream reference for continuation.
    */
-  OPrintStream &operator<<(int arg) {
-    print(arg, base_flag_);
-    return *this;
-  }
+  OPrintStream &operator<<(int arg);
 
   /**
    * @brief Prints the provided unsigned int.
@@ -111,10 +90,7 @@ class OPrintStream : public Serial_ {
    * @param arg The unsigned int to print.
    * @return OPrintStream& Returns the OPrintStream reference for continuation.
    */
-  OPrintStream &operator<<(unsigned int arg) {
-    print(arg, base_flag_);
-    return *this;
-  }
+  OPrintStream &operator<<(unsigned int arg);
 
   /**
    * @brief Prints the provided long.
@@ -122,20 +98,14 @@ class OPrintStream : public Serial_ {
    * @param arg The long to print.
    * @return OPrintStream& Returns the OPrintStream reference for continuation.
    */
-  OPrintStream &operator<<(long arg) {
-    print(arg, base_flag_);
-    return *this;
-  }
+  OPrintStream &operator<<(long arg);
   /**
    * @brief Prints the provided unsigned long.
    *
    * @param arg The unsigned long to print.
    * @return OPrintStream& Returns the OPrintStream reference for continuation.
    */
-  OPrintStream &operator<<(unsigned long arg) {
-    print(arg, base_flag_);
-    return *this;
-  }
+  OPrintStream &operator<<(unsigned long arg);
 
   /**
    * @brief Prints the provided long long.
@@ -143,10 +113,7 @@ class OPrintStream : public Serial_ {
    * @param arg The long long to print.
    * @return OPrintStream& Returns the OPrintStream reference for continuation.
    */
-  OPrintStream &operator<<(long long arg) {
-    print(arg, base_flag_);
-    return *this;
-  }
+  OPrintStream &operator<<(long long arg);
 
   /**
    * @brief Prints the provided unsigned long long.
@@ -154,10 +121,7 @@ class OPrintStream : public Serial_ {
    * @param arg The unsigned long long to print.
    * @return OPrintStream& Returns the OPrintStream reference for continuation.
    */
-  OPrintStream &operator<<(unsigned long long arg) {
-    print(arg, base_flag_);
-    return *this;
-  }
+  OPrintStream &operator<<(unsigned long long arg);
 
   /**
    * @brief Prints the provided double.
@@ -165,10 +129,7 @@ class OPrintStream : public Serial_ {
    * @param arg The double to print.
    * @return OPrintStream& Returns the OPrintStream reference for continuation.
    */
-  OPrintStream &operator<<(double arg) {
-    print(arg);
-    return *this;
-  }
+  OPrintStream &operator<<(double arg);
 
   /**
    * @brief Prints the provided Printable.
@@ -176,10 +137,7 @@ class OPrintStream : public Serial_ {
    * @param arg The Printable to print.
    * @return OPrintStream& Returns the OPrintStream reference for continuation.
    */
-  OPrintStream &operator<<(const Printable &arg) {
-    print(arg);
-    return *this;
-  }
+  OPrintStream &operator<<(const Printable &arg);
 
   /**
    * @brief Manipulator to switch the OPrintStream to printing Decimal number
@@ -232,11 +190,7 @@ class OPrintStream : public Serial_ {
  * desired, leading to poor buffering performance. Only call falven::ad::endl
  * when you need to both write a newline /r/n and flush.
  */
-OPrintStream &endl(OPrintStream &ops) {
-  ops.println();
-  ops.flush();
-  return ops;
-}
+OPrintStream &endl(OPrintStream &ops);
 
 /**
  * @brief Manipulator to switch the OPrintStream to printing Decimal number
@@ -245,10 +199,7 @@ OPrintStream &endl(OPrintStream &ops) {
  * @param ops The OPrintStream this manipulator was called on.
  * @return OPrintStream& Returns the OPrintStream reference for continuation.
  */
-OPrintStream &dec(OPrintStream &ops) {
-  ops.base_flag_ = DEC;
-  return ops;
-}
+OPrintStream &dec(OPrintStream &ops);
 
 /**
  * @brief Manipulator to switch the OPrintStream to printing Hexadecimal number
@@ -257,10 +208,7 @@ OPrintStream &dec(OPrintStream &ops) {
  * @param ops The OPrintStream this manipulator was called on.
  * @return OPrintStream& Returns the OPrintStream reference for continuation.
  */
-OPrintStream &hex(OPrintStream &ops) {
-  ops.base_flag_ = HEX;
-  return ops;
-}
+OPrintStream &hex(OPrintStream &ops);
 
 /**
  * @brief Manipulator to switch the OPrintStream to printing Octal number
@@ -269,10 +217,7 @@ OPrintStream &hex(OPrintStream &ops) {
  * @param ops The OPrintStream this manipulator was called on.
  * @return OPrintStream& Returns the OPrintStream reference for continuation.
  */
-OPrintStream &oct(OPrintStream &ops) {
-  ops.base_flag_ = OCT;
-  return ops;
-}
+OPrintStream &oct(OPrintStream &ops);
 
 /**
  * @brief Manipulator to switch the OPrintStream to printing Binary number
@@ -281,10 +226,7 @@ OPrintStream &oct(OPrintStream &ops) {
  * @param ops The OPrintStream this manipulator was called on.
  * @return OPrintStream& Returns the OPrintStream reference for continuation.
  */
-OPrintStream &bin(OPrintStream &ops) {
-  ops.base_flag_ = BIN;
-  return ops;
-}
+OPrintStream &bin(OPrintStream &ops);
 
 }  // namespace ad
 }  // namespace falven
