@@ -33,6 +33,8 @@ class OPrintStream : public Serial_ {
   OPrintStream(const OPrintStream &other)
       : Serial_(other), base_flag_(other.base_flag_) {}
 
+  virtual ~OPrintStream() = default;
+
   /**
    *  @brief  Interface for manipulators.
    *
@@ -40,7 +42,7 @@ class OPrintStream : public Serial_ {
    *  functions in constructs like "falven::ad::cout << falven::ad::endl".  For
    * more information, see the iomanip header.
    */
-  CD &operator<<(CD &(*pmf)(CD &)) { return pmf(*(dynamic_cast<CD *>(this))); }
+  CD &operator<<(CD &(*pmf)(CD &)) { return pmf(*(static_cast<CD *>(this))); }
 
   /**
    * @brief Prints the provided flash memory string.
@@ -50,7 +52,7 @@ class OPrintStream : public Serial_ {
    */
   CD &operator<<(const __FlashStringHelper *arg) {
     print(arg);
-    return *(dynamic_cast<CD *>(this));
+    return *(static_cast<CD *>(this));
   }
 
   /**
@@ -61,7 +63,7 @@ class OPrintStream : public Serial_ {
    */
   CD &operator<<(const arduino::String &arg) {
     print(arg);
-    return *(dynamic_cast<CD *>(this));
+    return *(static_cast<CD *>(this));
   }
 
   /**
@@ -72,7 +74,7 @@ class OPrintStream : public Serial_ {
    */
   CD &operator<<(const char arg[]) {
     print(arg);
-    return *(dynamic_cast<CD *>(this));
+    return *(static_cast<CD *>(this));
   }
 
   /**
@@ -83,7 +85,7 @@ class OPrintStream : public Serial_ {
    */
   CD &operator<<(const char arg) {
     print(arg);
-    return *(dynamic_cast<CD *>(this));
+    return *(static_cast<CD *>(this));
   }
 
   /**
@@ -94,7 +96,7 @@ class OPrintStream : public Serial_ {
    */
   CD &operator<<(unsigned char arg) {
     print(arg, base_flag_);
-    return *(dynamic_cast<CD *>(this));
+    return *(static_cast<CD *>(this));
   }
 
   /**
@@ -105,7 +107,7 @@ class OPrintStream : public Serial_ {
    */
   CD &operator<<(int arg) {
     print(arg, base_flag_);
-    return *(dynamic_cast<CD *>(this));
+    return *(static_cast<CD *>(this));
   }
 
   /**
@@ -116,7 +118,7 @@ class OPrintStream : public Serial_ {
    */
   CD &operator<<(unsigned int arg) {
     print(arg, base_flag_);
-    return *(dynamic_cast<CD *>(this));
+    return *(static_cast<CD *>(this));
   }
 
   /**
@@ -127,7 +129,7 @@ class OPrintStream : public Serial_ {
    */
   CD &operator<<(long arg) {
     print(arg, base_flag_);
-    return *(dynamic_cast<CD *>(this));
+    return *(static_cast<CD *>(this));
   }
   /**
    * @brief Prints the provided unsigned long.
@@ -137,7 +139,7 @@ class OPrintStream : public Serial_ {
    */
   CD &operator<<(unsigned long arg) {
     print(arg, base_flag_);
-    return *(dynamic_cast<CD *>(this));
+    return *(static_cast<CD *>(this));
   }
 
   /**
@@ -148,7 +150,7 @@ class OPrintStream : public Serial_ {
    */
   CD &operator<<(long long arg) {
     print(arg, base_flag_);
-    return *(dynamic_cast<CD *>(this));
+    return *(static_cast<CD *>(this));
   }
 
   /**
@@ -159,7 +161,7 @@ class OPrintStream : public Serial_ {
    */
   CD &operator<<(unsigned long long arg) {
     print(arg, base_flag_);
-    return *(dynamic_cast<CD *>(this));
+    return *(static_cast<CD *>(this));
   }
 
   /**
@@ -170,7 +172,7 @@ class OPrintStream : public Serial_ {
    */
   CD &operator<<(double arg) {
     print(arg);
-    return *(dynamic_cast<CD *>(this));
+    return *(static_cast<CD *>(this));
   }
 
   /**
@@ -181,7 +183,7 @@ class OPrintStream : public Serial_ {
    */
   CD &operator<<(const Printable &arg) {
     print(arg);
-    return *(dynamic_cast<CD *>(this));
+    return *(static_cast<CD *>(this));
   }
 
   /**
