@@ -7,7 +7,7 @@
 using namespace falven::ad;
 
 // Our printing object.
-OPrintStream print(USBDevice);
+OPrintStream<> print(USBDevice);
 
 void setup() {
   // Your typical Serial initialization.
