@@ -33,7 +33,7 @@ You can declare an `extern` instance of the class that you can reference in each
 ## Extending
 
 Extending the class to be able to print your own classes or structs is also pretty simple. You can either:
-1. Have your object extend the Arduino `Printable` class and implement the `virtual size_t printTo(Print& p) const = 0;` method. In this case you would not have to extend OPrintStream.
+1. Have your object extend the Arduino `Printable` class and implement the `virtual size_t printTo(Print& p);` method. In this case you would not have to extend OPrintStream.
 2. If you want to print an object that you do not own, say [boost::string_view][3], you can extend OPrintStream using the Curiously Recurring Template Pattern to specify your class as the overload return type. Example:
 
 ```cpp
