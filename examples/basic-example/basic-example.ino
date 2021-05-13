@@ -4,10 +4,10 @@
 
 #include <oprintstream.hpp>
 
-using namespace falven::ad;
-
 // Our printing object.
-OPrintStream<> print(USBDevice);
+falven::ad::OPrintStream<>
+    print(  // NOLINT(cppcoreguidelines-avoid-non-const-global-variables)
+        USBDevice);
 
 void setup() {
   // Your typical Serial initialization.
@@ -24,7 +24,8 @@ void setup() {
   print.flush();
 
   // I think you guessed correctly...
-  print << bin << "Testing... " << 1 << " " << 2 << endl;
+  print << falven::ad::bin << "Testing... " << 1 << " " << 2
+        << falven::ad::endl;
 }
 
 void loop() {}

@@ -1,4 +1,14 @@
 {
+  "C_Cpp.intelliSenseEngine": "Disabled",
+  "C_Cpp.autocomplete": "Disabled",
+  "C_Cpp.errorSquiggles": "Disabled",
+  "arduino.disableIntelliSenseAutoGen": true,
+  "editor.defaultFormatter": "llvm-vs-code-extensions.vscode-clangd",
+  "clangd.onConfigChanged": "restart",
+  "clangd.arguments": [
+    "--log=verbose",
+    "--query-driver=C:\\Users\\falve\\AppData\\Local\\Arduino15\\packages\\arduino\\tools\\arm-none-eabi-gcc\\7-2017q4/bin/arm-none-eabi-gcc.exe,C:\\Users\\falve\\AppData\\Local\\Arduino15\\packages\\arduino\\tools\\arm-none-eabi-gcc\\7-2017q4/bin/arm-none-eabi-g++.exe"
+  ],
   "files.associations": {
     "initializer_list": "cpp",
     "xstring": "cpp",
@@ -42,16 +52,5 @@
     "streambuf": "cpp",
     "cinttypes": "cpp",
     "typeinfo": "cpp"
-  },
-  "arduino.logLevel": "verbose",
-  "C_Cpp.loggingLevel": "Debug",
-  "C_Cpp.default.browse.path": ["src/**"],
-  "C_Cpp.clang_format_style": "Google",
-  "C_Cpp.clang_format_fallbackStyle": "Google",
-  "C_Cpp.clang_format_sortIncludes": false,
-  "C_Cpp.files.exclude": {
-    "**/.vscode": true,
-    "bin/**": true
-  },
-  "C_Cpp.intelliSenseEngine": "Default"
+  }
 }

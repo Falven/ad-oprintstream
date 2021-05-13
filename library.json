@@ -1,0 +1,17 @@
+{
+  "name": "OPrintStream",
+  "keywords": "Serial, Print, Stream, c++",
+  "description": "Work with Arduino Serial libraries in a modern c++ output-stream-like manner.",
+  "homepage": "https://github.com/Falven/ad-oprintstream",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Falven/ad-oprintstream"
+  },
+  "version": "0.0.2",
+  "authors": {
+    "name": "Francisco Aguilera"
+  },
+  "license": "MIT",
+  "frameworks": "*",
+  "platforms": "*"
+}
