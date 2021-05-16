@@ -5,6 +5,7 @@
 
 #include <USB/USBAPI.h>
 
+#include <algorithm>
 #include <type_traits>
 
 namespace falven {
@@ -28,12 +29,8 @@ class OPrintStream : public Serial_ {
    *
    * @param _usb USB metadata for the Serial connection.
    */
-  OPrintStream(USBDeviceClass &_usb) : Serial_(_usb), base_flag_(DEC) {}
-
-  OPrintStream(const OPrintStream &other)
-      : Serial_(other), base_flag_(other.base_flag_) {}
-
-  virtual ~OPrintStream() = default;
+  explicit OPrintStream(USBDeviceClass &_usb)
+      : Serial_(_usb), base_flag_(DEC) {}
 
   /**
    *  @brief  Interface for manipulators.
@@ -42,7 +39,9 @@ class OPrintStream : public Serial_ {
    *  functions in constructs like "falven::ad::cout << falven::ad::endl".  For
    * more information, see the iomanip header.
    */
-  CD &operator<<(CD &(*pmf)(CD &)) { return pmf(*(static_cast<CD *>(this))); }
+  auto operator<<(CD &(*pmf)(CD &)) -> CD & {
+    return pmf(*(static_cast<CD *>(this)));
+  }
 
   /**
    * @brief Prints the provided flash memory string.
@@ -50,7 +49,7 @@ class OPrintStream : public Serial_ {
    * @param arg The flash memory string to print.
    * @return OPrintStream& Returns the OPrintStream reference for continuation.
    */
-  CD &operator<<(const __FlashStringHelper *arg) {
+  auto operator<<(const __FlashStringHelper *arg) -> CD & {
     print(arg);
     return *(static_cast<CD *>(this));
   }
@@ -61,7 +60,7 @@ class OPrintStream : public Serial_ {
    * @param arg The arduino::string to print.
    * @return OPrintStream& Returns the OPrintStream reference for continuation.
    */
-  CD &operator<<(const arduino::String &arg) {
+  auto operator<<(const arduino::String &arg) -> CD & {
     print(arg);
     return *(static_cast<CD *>(this));
   }
@@ -72,7 +71,8 @@ class OPrintStream : public Serial_ {
    * @param arg The char[] to print.
    * @return OPrintStream& Returns the OPrintStream reference for continuation.
    */
-  CD &operator<<(const char arg[]) {
+  auto operator<<(const char arg[]) -> CD
+      & {  // NOLINT(modernize-avoid-c-arrays, cppcoreguidelines-avoid-c-arrays)
     print(arg);
     return *(static_cast<CD *>(this));
   }
@@ -83,7 +83,7 @@ class OPrintStream : public Serial_ {
    * @param arg The const char to print.
    * @return OPrintStream& Returns the OPrintStream reference for continuation.
    */
-  CD &operator<<(const char arg) {
+  auto operator<<(const char arg) -> CD & {
     print(arg);
     return *(static_cast<CD *>(this));
   }
@@ -94,7 +94,7 @@ class OPrintStream : public Serial_ {
    * @param arg The unsigned char to print.
    * @return OPrintStream& Returns the OPrintStream reference for continuation.
    */
-  CD &operator<<(unsigned char arg) {
+  auto operator<<(unsigned char arg) -> CD & {
     print(arg, base_flag_);
     return *(static_cast<CD *>(this));
   }
@@ -105,7 +105,7 @@ class OPrintStream : public Serial_ {
    * @param arg The int to print.
    * @return OPrintStream& Returns the OPrintStream reference for continuation.
    */
-  CD &operator<<(int arg) {
+  auto operator<<(int arg) -> CD & {
     print(arg, base_flag_);
     return *(static_cast<CD *>(this));
   }
@@ -116,7 +116,7 @@ class OPrintStream : public Serial_ {
    * @param arg The unsigned int to print.
    * @return OPrintStream& Returns the OPrintStream reference for continuation.
    */
-  CD &operator<<(unsigned int arg) {
+  auto operator<<(unsigned int arg) -> CD & {
     print(arg, base_flag_);
     return *(static_cast<CD *>(this));
   }
@@ -127,7 +127,7 @@ class OPrintStream : public Serial_ {
    * @param arg The long to print.
    * @return OPrintStream& Returns the OPrintStream reference for continuation.
    */
-  CD &operator<<(long arg) {
+  auto operator<<(long arg) -> CD & {
     print(arg, base_flag_);
     return *(static_cast<CD *>(this));
   }
@@ -137,7 +137,7 @@ class OPrintStream : public Serial_ {
    * @param arg The unsigned long to print.
    * @return OPrintStream& Returns the OPrintStream reference for continuation.
    */
-  CD &operator<<(unsigned long arg) {
+  auto operator<<(unsigned long arg) -> CD & {  // NOLINT(google-runtime-int)
     print(arg, base_flag_);
     return *(static_cast<CD *>(this));
   }
@@ -148,7 +148,7 @@ class OPrintStream : public Serial_ {
    * @param arg The long long to print.
    * @return OPrintStream& Returns the OPrintStream reference for continuation.
    */
-  CD &operator<<(long long arg) {
+  auto operator<<(long long arg) -> CD & {  // NOLINT(google-runtime-int)
     print(arg, base_flag_);
     return *(static_cast<CD *>(this));
   }
@@ -159,7 +159,8 @@ class OPrintStream : public Serial_ {
    * @param arg The unsigned long long to print.
    * @return OPrintStream& Returns the OPrintStream reference for continuation.
    */
-  CD &operator<<(unsigned long long arg) {
+  auto operator<<(unsigned long long arg)
+      -> CD & {  // NOLINT(google-runtime-int)
     print(arg, base_flag_);
     return *(static_cast<CD *>(this));
   }
@@ -170,7 +171,7 @@ class OPrintStream : public Serial_ {
    * @param arg The double to print.
    * @return OPrintStream& Returns the OPrintStream reference for continuation.
    */
-  CD &operator<<(double arg) {
+  auto operator<<(double arg) -> CD & {
     print(arg);
     return *(static_cast<CD *>(this));
   }
@@ -181,7 +182,7 @@ class OPrintStream : public Serial_ {
    * @param arg The Printable to print.
    * @return OPrintStream& Returns the OPrintStream reference for continuation.
    */
-  CD &operator<<(const Printable &arg) {
+  auto operator<<(const Printable &arg) -> CD & {
     print(arg);
     return *(static_cast<CD *>(this));
   }
@@ -194,7 +195,7 @@ class OPrintStream : public Serial_ {
    * @return OPrintStream& Returns the OPrintStream reference for continuation.
    */
   template <typename FD, typename FCD>
-  friend FCD &dec(FCD &ops);
+  friend auto dec(FCD &ops) -> FCD &;
 
   /**
    * @brief Manipulator to switch the OPrintStream to printing Hexadecimal
@@ -204,7 +205,7 @@ class OPrintStream : public Serial_ {
    * @return OPrintStream& Returns the OPrintStream reference for continuation.
    */
   template <typename FD, typename FCD>
-  friend FCD &hex(FCD &ops);
+  friend auto hex(FCD &ops) -> FCD &;
 
   /**
    * @brief Manipulator to switch the OPrintStream to printing Octal number
@@ -214,7 +215,7 @@ class OPrintStream : public Serial_ {
    * @return OPrintStream& Returns the OPrintStream reference for continuation.
    */
   template <typename FD, typename FCD>
-  friend FCD &oct(FCD &ops);
+  friend auto oct(FCD &ops) -> FCD &;
 
   /**
    * @brief Manipulator to switch the OPrintStream to printing Binary number
@@ -224,7 +225,7 @@ class OPrintStream : public Serial_ {
    * @return OPrintStream& Returns the OPrintStream reference for continuation.
    */
   template <typename FD, typename FCD>
-  friend FCD &bin(FCD &ops);
+  friend auto bin(FCD &ops) -> FCD &;
 
  private:
   /**
@@ -244,7 +245,7 @@ class OPrintStream : public Serial_ {
 template <typename D = void,
           typename CD = typename std::conditional<std::is_same<D, void>::value,
                                                   OPrintStream<D>, D>::type>
-CD &endl(CD &ops) {
+auto endl(CD &ops) -> CD & {
   ops.println();
   ops.flush();
   return ops;
@@ -260,7 +261,7 @@ CD &endl(CD &ops) {
 template <typename D = void,
           typename CD = typename std::conditional<std::is_same<D, void>::value,
                                                   OPrintStream<D>, D>::type>
-CD &dec(CD &ops) {
+auto dec(CD &ops) -> CD & {
   ops.base_flag_ = DEC;
   return ops;
 }
@@ -275,7 +276,7 @@ CD &dec(CD &ops) {
 template <typename D = void,
           typename CD = typename std::conditional<std::is_same<D, void>::value,
                                                   OPrintStream<D>, D>::type>
-CD &hex(CD &ops) {
+auto hex(CD &ops) -> CD & {
   ops.base_flag_ = HEX;
   return ops;
 }
@@ -290,7 +291,7 @@ CD &hex(CD &ops) {
 template <typename D = void,
           typename CD = typename std::conditional<std::is_same<D, void>::value,
                                                   OPrintStream<D>, D>::type>
-CD &oct(CD &ops) {
+auto oct(CD &ops) -> CD & {
   ops.base_flag_ = OCT;
   return ops;
 }
@@ -305,7 +306,7 @@ CD &oct(CD &ops) {
 template <typename D = void,
           typename CD = typename std::conditional<std::is_same<D, void>::value,
                                                   OPrintStream<D>, D>::type>
-CD &bin(CD &ops) {
+auto bin(CD &ops) -> CD & {
   ops.base_flag_ = BIN;
   return ops;
 }
