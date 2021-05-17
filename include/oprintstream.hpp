@@ -71,8 +71,9 @@ class OPrintStream : public Serial_ {
    * @param arg The char[] to print.
    * @return OPrintStream& Returns the OPrintStream reference for continuation.
    */
-  auto operator<<(const char arg[]) -> CD
-      & {  // NOLINT(modernize-avoid-c-arrays, cppcoreguidelines-avoid-c-arrays)
+  auto operator<<(const char arg[]) -> CD  // NOLINT(modernize-avoid-c-arrays,
+                                           // cppcoreguidelines-avoid-c-arrays)
+      & {
     print(arg);
     return *(static_cast<CD *>(this));
   }
@@ -127,7 +128,7 @@ class OPrintStream : public Serial_ {
    * @param arg The long to print.
    * @return OPrintStream& Returns the OPrintStream reference for continuation.
    */
-  auto operator<<(long arg) -> CD & {
+  auto operator<<(long arg) -> CD & {  // NOLINT(google-runtime-int)
     print(arg, base_flag_);
     return *(static_cast<CD *>(this));
   }
@@ -159,8 +160,8 @@ class OPrintStream : public Serial_ {
    * @param arg The unsigned long long to print.
    * @return OPrintStream& Returns the OPrintStream reference for continuation.
    */
-  auto operator<<(unsigned long long arg)
-      -> CD & {  // NOLINT(google-runtime-int)
+  auto operator<<(unsigned long long arg)  // NOLINT(google-runtime-int)
+      -> CD & {
     print(arg, base_flag_);
     return *(static_cast<CD *>(this));
   }
