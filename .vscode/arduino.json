@@ -1,6 +1,6 @@
 {
     "board": "arduino:samd:mkrwifi1010",
     "output": "./build",
-    "sketch": "examples\\basic-example\\basic-example.ino",
+    "sketch": "examples\\inheritance\\inheritance.ino",
     "postbuild": "node ./scripts/postbuild.js %VSCA_BUILD_DIR%"
 }
